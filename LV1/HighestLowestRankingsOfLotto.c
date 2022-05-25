@@ -1,3 +1,5 @@
+// 로또의 최고순위와 최저순위
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
