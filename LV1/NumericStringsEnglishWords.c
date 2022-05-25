@@ -19,6 +19,7 @@ int solution(const char* s) {
         }
         else
         {
+            // 문자인 
             if (s[i] == 'z')
             {
                 answer = answer * 10;
@@ -81,7 +82,7 @@ int solution(const char* s) {
                 answer = answer * 10 + 9;
                 i += 4;
             }
-            else
+            else // 숫자인 경우
             {
                 answer = answer * 10 + (int)(s[i] - '0');
                 i++;
