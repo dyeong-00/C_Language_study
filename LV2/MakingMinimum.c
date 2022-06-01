@@ -1,5 +1,5 @@
-# 최솟값 만들기
-# 
+// 최솟값 만들기
+// 미완
 
 #include <stdio.h>
 #include <stdbool.h>
