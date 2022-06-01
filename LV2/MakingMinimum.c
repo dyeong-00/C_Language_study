@@ -16,10 +16,30 @@ int descending(int l[], int low, int high);
 
 int solution(int A[], size_t A_len, int B[], size_t B_len) {
     int answer = 0;
-    ascending_sort(A, 0, A_len-1);
-    descending_sort(B, 0, B_len-1);
+    int temp = 0;
+    if (A_len == 2)
+    {
+        if (A[0] < A[1])
+        {
+            temp = A[0];
+            A[0] = A[1];
+            A[1] = temp;
+        }
+        if (B[0] > B[1])
+        {
+            temp = B[0];
+            B[0] = B[1];
+            B[1] = temp;
+        }
+    }
+    else
+    {
+        ascending_sort(A, 0, A_len-1);
+        descending_sort(B, 0, B_len-1);
+    }
     for (int i = 0; i < A_len; i++)
     {
+        printf("%d, %d\n", A[i], B[i]);
         answer += (A[i] * B[i]);
     }
     return answer;
@@ -27,7 +47,7 @@ int solution(int A[], size_t A_len, int B[], size_t B_len) {
 
 void ascending_sort(int l[], int low, int high)
 {
-    if (low <= high)
+    if (low < high)
     {
         int pivot = ascending(l, low, high);
         ascending_sort(l, low, pivot-1);
@@ -49,11 +69,11 @@ void descending_sort(int l[], int low, int high)
 
 int ascending(int l[], int low, int high)
 {
-    int pivot = l[low];
+    int pivot = low;
     int i = pivot + 1;
     int j = high;
     int temp;
-    while(i <= j)
+    while(i < j)
     {
         while(l[i] <= l[pivot])
         {
@@ -63,7 +83,7 @@ int ascending(int l[], int low, int high)
         {
             j--;
         }
-        if (i <= j)
+        if (i < j)
         {
             temp = l[i];
             l[i] = l[j];
@@ -81,11 +101,11 @@ int ascending(int l[], int low, int high)
 
 int descending(int l[], int low, int high)
 {
-    int pivot = l[low];
+    int pivot = low;
     int i = pivot + 1;
     int j = high;
     int temp;
-    while(i <= j)
+    while(i < j)
     {
         while(l[i] >= l[pivot])
         {
@@ -95,7 +115,7 @@ int descending(int l[], int low, int high)
         {
             j--;
         }
-        if (i >= j)
+        if (i < j)
         {
             temp = l[i];
             l[i] = l[j];
@@ -103,7 +123,6 @@ int descending(int l[], int low, int high)
             i++;
             j--;
         }
-        
     }
     temp = l[pivot];
     l[pivot] = l[i];
