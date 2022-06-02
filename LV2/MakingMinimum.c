@@ -1,132 +1,30 @@
 // 최솟값 만들기
-// 미완
 
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
+int compare(const int* a, const int* b)
+{
+    if(*a > *b)
+        return 1;
+    else if(*a < *b)
+        return -1;
+    else
+        return 0;
+}
+
 // A_len은 배열 A의 길이입니다.
 // B_len은 배열 B의 길이입니다.
-
-void ascending_sort(int l[], int low, int high);
-void descending_sort(int l[], int low, int high);
-int ascending(int l[], int low, int high);
-int descending(int l[], int low, int high);
-
-
 int solution(int A[], size_t A_len, int B[], size_t B_len) {
     int answer = 0;
     int temp = 0;
-    if (A_len == 2)
-    {
-        if (A[0] < A[1])
-        {
-            temp = A[0];
-            A[0] = A[1];
-            A[1] = temp;
-        }
-        if (B[0] > B[1])
-        {
-            temp = B[0];
-            B[0] = B[1];
-            B[1] = temp;
-        }
-    }
-    else
-    {
-        ascending_sort(A, 0, A_len-1);
-        descending_sort(B, 0, B_len-1);
-    }
+    qsort(A, A_len, sizeof(int), compare);
+    qsort(B, B_len, sizeof(int), compare);
     for (int i = 0; i < A_len; i++)
     {
-        printf("%d, %d\n", A[i], B[i]);
-        answer += (A[i] * B[i]);
+//        printf("%d, %d\n", A[i], B[i]);
+        answer += (A[i] * B[B_len-i-1]);
     }
     return answer;
-}
-
-void ascending_sort(int l[], int low, int high)
-{
-    if (low < high)
-    {
-        int pivot = ascending(l, low, high);
-        ascending_sort(l, low, pivot-1);
-        ascending_sort(l, pivot+1, high);
-    }
-        
-}
-
-void descending_sort(int l[], int low, int high)
-{
-    if (low < high)
-    {
-        int pivot = descending(l, low, high);
-        descending_sort(l, low, pivot-1);
-        descending_sort(l, pivot+1, high);
-
-    }
-}
-
-int ascending(int l[], int low, int high)
-{
-    int pivot = low;
-    int i = pivot + 1;
-    int j = high;
-    int temp;
-    while(i < j)
-    {
-        while(l[i] <= l[pivot])
-        {
-            i++;
-        }
-        while(l[j] >= l[pivot])
-        {
-            j--;
-        }
-        if (i < j)
-        {
-            temp = l[i];
-            l[i] = l[j];
-            l[j] = temp;
-            i++;
-            j--;
-        }
-    }
-    temp = l[pivot];
-    l[pivot] = l[i];
-    l[i] = temp;
-    
-    return pivot;
-}
-
-int descending(int l[], int low, int high)
-{
-    int pivot = low;
-    int i = pivot + 1;
-    int j = high;
-    int temp;
-    while(i < j)
-    {
-        while(l[i] >= l[pivot])
-        {
-            i++;
-        }
-        while(l[j] <= l[pivot])
-        {
-            j--;
-        }
-        if (i < j)
-        {
-            temp = l[i];
-            l[i] = l[j];
-            l[j] = temp;
-            i++;
-            j--;
-        }
-    }
-    temp = l[pivot];
-    l[pivot] = l[i];
-    l[i] = temp;
-    
-    return pivot;
 }
